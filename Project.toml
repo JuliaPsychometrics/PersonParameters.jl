@@ -1,0 +1,21 @@
+name = "PersonParameters"
+uuid = "ede86a6c-608d-4331-8790-0f4b0558141a"
+authors = [
+    "Tobias Alfers <tobias@alfers.eu>",
+    "Philipp Gewessler <p.gewessler@gmx.at>",
+]
+version = "0.1.0"
+
+[deps]
+ItemResponseFunctions = "18e85bec-f2a0-4122-b3a6-37651333b522"
+Roots = "f2b01f46-fcfa-551c-844a-d8ac1e96c665"
+
+[compat]
+ItemResponseFunctions = "0.1"
+Roots = "2"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
