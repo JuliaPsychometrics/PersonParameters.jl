@@ -9,7 +9,7 @@ using PersonParameters
         betas = [-1.17, -0.69, 0.04, 0.7, 1.12]
 
         @testset "MLE" begin
-            pp = person_parameters(OneParameterLogisticModel, betas, MLE())
+            pp = person_parameters(OnePL, betas, MLE())
 
             @test length(pp.values) == length(betas) + 1
             @test isnan(pp.values[1])
