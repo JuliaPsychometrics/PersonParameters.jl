@@ -54,9 +54,9 @@ Base.getindex(pp::PersonParameterResult, i) = getindex(pp.values, i)
 Estimate the person parameter for an item response theory model (`modeltype`) from a
 response vector (`responses`) given item parameters `beta` and an estimation algorithm `alg`.
 """
-function person_parameter(modeltype, responses, betas, alg)
+function person_parameter(modeltype, responses, betas, alg; kwargs...)
     I = length(betas)
-    init_x = 0.0
+    init_x = zero(Float64)
     score = sum(skipmissing(responses))
 
     if !rational_bounds(alg)
@@ -67,8 +67,8 @@ function person_parameter(modeltype, responses, betas, alg)
         end
     end
 
-    f = x -> optfun(alg, modeltype, x, betas, responses)
-    theta = find_zero(f, init_x)
+    prob = ZeroProblem(x -> optfun(alg, modeltype, x, betas, responses), init_x)
+    theta = solve(prob, Order1(); kwargs...)
 
     standard_error = se(alg, modeltype, theta, betas)
 

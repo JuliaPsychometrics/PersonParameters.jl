@@ -11,20 +11,17 @@ struct WLE <: PersonParameterAlgorithm end
 
 rational_bounds(alg::WLE) = true
 
-function optfun(alg::WLE, modeltype, theta, betas, responses)
-    optval = 0.0
-
-    adtype = AutoForwardDiff()
+function optfun(alg::WLE, modeltype::Type{<:ItemResponseModel}, theta, betas, responses)
+    optval = zero(theta)
 
     for (beta, y) in zip(betas, responses)
-        f = x -> irf(modeltype, x, beta, 1)
-        prob, deriv = value_and_derivative(f, adtype, theta)
+        prob, deriv, deriv2 = second_derivative_theta(modeltype, theta, beta, 1)
 
+        # MLE value
         p1mp = prob * (1 - prob)
         optval += ((y - prob) * deriv) / p1mp
 
         # bias correction
-        deriv2 = second_derivative(f, adtype, theta)
         i = deriv^2 / p1mp
         j = deriv * deriv2 / p1mp
         optval += j / 2 * i
@@ -32,4 +29,3 @@ function optfun(alg::WLE, modeltype, theta, betas, responses)
 
     return optval
 end
-

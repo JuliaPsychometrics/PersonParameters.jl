@@ -7,15 +7,11 @@ struct MLE <: PersonParameterAlgorithm end
 
 rational_bounds(alg::MLE) = false
 
-function optfun(alg::MLE, modeltype, theta, betas, responses)
-    optval = 0.0
-
-    adtype = AutoForwardDiff()
+function optfun(alg::MLE, modeltype::Type{<:ItemResponseModel}, theta, betas, responses)
+    optval = zero(theta)
 
     for (beta, y) in zip(betas, responses)
-        ismissing(y) && continue
-        f = x -> irf(modeltype, x, beta, 1)
-        prob, deriv = value_and_derivative(f, adtype, theta)
+        prob, deriv = derivative_theta(modeltype, theta, beta, 1)
         optval += ((y - prob) * deriv) / (prob * (1 - prob))
     end
 
