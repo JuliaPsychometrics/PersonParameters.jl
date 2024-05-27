@@ -1,21 +1,12 @@
 module PersonParameters
 
-using DifferentiationInterface:
-    AutoEnzyme,
-    AutoForwardDiff,
-    derivative,
-    second_derivative,
-    value_and_derivative,
-    value_and_derivative!
 using Distributions: Normal, Distribution, Univariate, Continuous, logpdf
+using DocStringExtensions: TYPEDEF, SIGNATURES, FIELDS
+using ForwardDiff: derivative
 using ItemResponseFunctions:
     ItemResponseModel, irf, iif, information, derivative_theta, second_derivative_theta
-using DocStringExtensions: TYPEDEF, SIGNATURES, FIELDS
 using Reexport: @reexport
 using Roots
-
-import Enzyme
-import ForwardDiff
 
 @reexport using ItemResponseFunctions:
     OneParameterLogisticModel,
