@@ -4,7 +4,13 @@ using Distributions: Normal, Distribution, Univariate, Continuous, logpdf
 using DocStringExtensions: TYPEDEF, SIGNATURES, FIELDS
 using ForwardDiff: derivative
 using ItemResponseFunctions:
-    ItemResponseModel, irf, iif, information, derivative_theta, second_derivative_theta
+    ItemResponseModel,
+    DichotomousItemResponseModel,
+    irf,
+    iif,
+    information,
+    derivative_theta,
+    second_derivative_theta
 using Reexport: @reexport
 using Roots
 
@@ -26,6 +32,7 @@ export PersonParameter, PersonParameterResult, PersonParameterAlgorithm
 export MAP, MLE, WLE, person_parameters, person_parameter
 export value, se, score
 
+include("utils.jl")
 include("algorithms/algorithms.jl")
 include("person_parameters.jl")
 

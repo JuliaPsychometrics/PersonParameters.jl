@@ -12,12 +12,14 @@ Each algorithm must implement the following functions:
 """
 abstract type PersonParameterAlgorithm end
 
+const PPA = PersonParameterAlgorithm
+
 """
     $(SIGNATURES)
 
 The optimization function passed to the root finding algorithm.
 """
-function optfun(alg::PersonParameterAlgorithm, modeltype, theta, betas, responses) end
+function optfun(alg::PPA, modeltype, theta, betas, responses) end
 
 """
     $(SIGNATURES)
@@ -25,7 +27,7 @@ function optfun(alg::PersonParameterAlgorithm, modeltype, theta, betas, response
 Calculate the standard error for a person parameter estimate `theta` given an estimation
 algorithm (`alg`), a model type (`modeltype`), and item parameters (`betas`).
 """
-function se(alg::PersonParameterAlgorithm, modeltype, theta, betas)
+function se(alg::PPA, modeltype::Type{<:ItemResponseModel}, theta, betas)
     info = information(modeltype, theta, betas)
     return sqrt(inv(info))
 end

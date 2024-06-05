@@ -3,11 +3,17 @@
 
 Maximum likelihood estimation for person parameters of item response models.
 """
-struct MLE <: PersonParameterAlgorithm end
+struct MLE <: PPA end
 
 rational_bounds(alg::MLE) = false
 
-function optfun(alg::MLE, modeltype::Type{<:ItemResponseModel}, theta, betas, responses)
+function optfun(
+    alg::MLE,
+    modeltype::Type{<:DichotomousItemResponseModel},
+    theta,
+    betas,
+    responses,
+)
     optval = zero(theta)
 
     for (beta, y) in zip(betas, responses)

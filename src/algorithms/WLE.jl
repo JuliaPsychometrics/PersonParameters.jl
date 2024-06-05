@@ -7,11 +7,17 @@ Warm's weighted likelihood estimation for person parameters of item response mod
 
 - Warm, T. A. (1989). Weighted likelihood estimation of ability in item response theory. Psychometrika, 54, 427-450. doi: 10.1007/BF02294627
 """
-struct WLE <: PersonParameterAlgorithm end
+struct WLE <: PPA end
 
 rational_bounds(alg::WLE) = true
 
-function optfun(alg::WLE, modeltype::Type{<:ItemResponseModel}, theta, betas, responses)
+function optfun(
+    alg::WLE,
+    modeltype::Type{<:DichotomousItemResponseModel},
+    theta,
+    betas,
+    responses,
+)
     optval = zero(theta)
 
     for (beta, y) in zip(betas, responses)

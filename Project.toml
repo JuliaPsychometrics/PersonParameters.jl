@@ -1,6 +1,9 @@
 name = "PersonParameters"
 uuid = "ede86a6c-608d-4331-8790-0f4b0558141a"
-authors = ["Tobias Alfers <tobias@alfers.eu>", "Philipp Gewessler <p.gewessler@gmx.at>"]
+authors = [
+    "Tobias Alfers <tobias@alfers.eu>",
+    "Philipp Gewessler <p.gewessler@gmx.at>",
+]
 version = "0.1.0"
 
 [deps]
@@ -12,7 +15,11 @@ Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 Roots = "f2b01f46-fcfa-551c-844a-d8ac1e96c665"
 
 [compat]
+Distributions = "0.25"
+DocStringExtensions = "0.9"
+ForwardDiff = "0.10"
 ItemResponseFunctions = "0.1"
+Reexport = "1"
 Roots = "2"
 
 [extras]
