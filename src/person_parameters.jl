@@ -65,8 +65,29 @@ algorithm(pp::PersonParameterResult) = pp.algorithm
 """
     $(SIGNATURES)
 
-Estimate the person parameter for an item response theory model (`modeltype`) from a
+Estimate a single person parameter for an item response theory model (`modeltype`) from a
 response vector (`responses`) given item parameters `beta` and an estimation algorithm `alg`.
+
+## Examples
+### 1 Parameter Logistic Model
+```jldoctest
+julia> responses = [0, 1, 1, 0, 0];
+
+julia> betas = [0.2, -1.3, 0.4, 1.2, 0.0];
+
+julia> person_parameter(OnePL, responses, betas, MLE())
+PersonParameter{Float64}(-0.34640709530672537, 0.9812365857368596)
+```
+
+### 3 Parameter Logistic Model
+```jldoctest
+julia> responses = [0, 1, 1];
+
+julia> betas = [(a = 1.0, b = 0.3, c = 0.1), (a = 0.3, b = -0.5, c = 0.0), (a = 1.4, b = 1.1, c = 0.3)];
+
+julia> person_parameter(ThreePL, responses, betas, WLE())
+PersonParameter{Float64}(0.4386489955068812, 1.6080292828245706)
+```
 """
 function person_parameter(
     modeltype::Type{<:ItemResponseModel},
