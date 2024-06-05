@@ -25,3 +25,5 @@ Manifest.toml
 
 # custom files
 .vscode
+
+data/
