@@ -18,9 +18,9 @@ It is tightly integrated with [`ItemResponseFunctions.jl`](https://github.com/ju
 - Models for polytomous responses: not implemented yet
 
 Available estimation methods are:
-- [Maximum Likelihood](@ref MLE)
-- [Weighted Maximum Likelihood](@ref WLE)
-- [Maximum A Posteriori](@ref MAP)
+- Maximum Likelihood
+- Weighted Maximum Likelihood
+- Maximum A Posteriori
 
 ## Installation
 You can install PersonParameters.jl from the General package registry:
@@ -34,7 +34,7 @@ The most common use case is to estimate person parameters from a response matrix
 
 Let us define a response matrix `responses` as well as some item difficulties (`betas`) estimated by a 1 Parameter Logistic Model.
 
-```@example getting-started
+```julia
 responses = [
     0 0 1 1
     1 1 1 0
@@ -46,9 +46,9 @@ responses = [
 betas = [0.2, -0.5, 1.5, -1.0];
 ```
 
-Person parameters can simply be etimated by calling the [`person_parameters`](@ref) function, providing the data, scaling model and an estimation algorithm:
+Person parameters can simply be etimated by calling the `person_parameters` function, providing the data, scaling model and an estimation algorithm:
 
-```@example getting-started
+```julia
 using PersonParameters
 
 alg = MLE()
