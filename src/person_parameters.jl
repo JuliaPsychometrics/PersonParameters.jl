@@ -3,8 +3,12 @@
 
 A container holding a single estimated person parameter.
 
-# Fields
+## Fields
 $(FIELDS)
+
+## Methods
+- [`value`](@ref): Extract the person parameter estimate
+- [`se`](@ref): Extract the standard error of estimation
 """
 struct PersonParameter{U<:Real}
     "the estimated ability value"
@@ -17,6 +21,14 @@ end
     $(SIGNATURES)
 
 Extract the value from a [`PersonParameter`](@ref) estimate `pp`.
+
+## Examples
+```jldoctest
+julia> pp = PersonParameter(0.0, 1.0);
+
+julia> value(pp)
+0.0
+```
 """
 value(pp::PersonParameter) = pp.value
 
@@ -24,6 +36,14 @@ value(pp::PersonParameter) = pp.value
     $(SIGNATURES)
 
 Extract the standard error from a [`PersonParameter`](@ref) estimate `pp`.
+
+## Examples
+```jldoctest
+julia> pp = PersonParameter(0.5, 0.3);
+
+julia> se(pp)
+0.3
+```
 """
 se(pp::PersonParameter) = pp.se
 
@@ -32,8 +52,12 @@ se(pp::PersonParameter) = pp.se
 
 A collection of estimated person parameters.
 
-# Fields
+## Fields
 $(FIELDS)
+
+## Methods
+- [`modeltype`](@ref): Get the model type of the scaling model
+- [`algorithm`](@ref): Get the algorithm used for estimation
 """
 struct PersonParameterResult{
     T<:ItemResponseModel,
@@ -52,6 +76,14 @@ Base.getindex(pp::PersonParameterResult, i) = getindex(pp.values, i)
     $(SIGNATURES)
 
 Get the scaling model used to calculate the person parameters in `pp`.
+
+## Examples
+```jldoctest
+julia> pp = person_parameters(TwoPL, fill(zeros(3), 10), fill((a = 1.0, b = 0.0), 3), WLE());
+
+julia> modeltype(pp)
+TwoParameterLogisticModel
+```
 """
 modeltype(pp::PersonParameterResult{T,U,V}) where {T,U,V} = T
 
@@ -59,6 +91,14 @@ modeltype(pp::PersonParameterResult{T,U,V}) where {T,U,V} = T
     $(SIGNATURES)
 
 Get the algorithm used to calculate the person parameters in `pp`.
+
+## Examples
+```jldoctest
+julia> pp = person_parameters(OnePL, fill(zeros(3), 5), zeros(3), MLE());
+
+julia> algorithm(pp)
+MLE()
+```
 """
 algorithm(pp::PersonParameterResult) = pp.algorithm
 
@@ -127,12 +167,34 @@ end
 
 """
     $(SIGNATURES)
+
+Estimate person parameters for an item response theory model of type `modeltype` given
+item parameters `betas`, an estimation algorithm `alg` and `responses` for each person.
+
+`responses` can be a vector of responses where each entry corresponds to the responses for
+a person, or a response matrix with `size(responses) == (n, length(betas))`, i.e. each row
+of the response matrix corresponds to the responses of a single person.
+
+## Examples
+### 1 Parameter Logistic Model
+```jldoctest
+julia> responses = [1 1 0; 0 1 0; 1 1 0; 0 0 1]
+4×3 Matrix{Int64}:
+ 1  1  0
+ 0  1  0
+ 1  1  0
+ 0  0  1
+
+julia> betas = [-0.1, 0.0, 1.0];
+
+julia> person_parameters(OnePL, responses, betas, MLE());
+```
 """
 function person_parameters(
     modeltype::Type{<:ItemResponseModel},
     responses::AbstractVector,
     betas,
-    alg,
+    alg::PPA,
 )
     patterns, ids = get_unique_response_patterns(responses)
     unique_thetas = [person_parameter(modeltype, ys, betas, alg) for ys in patterns]

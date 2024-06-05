@@ -1,7 +1,7 @@
 module PersonParameters
 
 using Distributions: Normal, Distribution, Univariate, Continuous, logpdf
-using DocStringExtensions: TYPEDEF, SIGNATURES, FIELDS
+using DocStringExtensions: TYPEDEF, SIGNATURES, FIELDS, METHODLIST
 using ForwardDiff: derivative
 using ItemResponseFunctions:
     ItemResponseModel,
@@ -28,9 +28,19 @@ using Roots
     FiveParameterLogisticModel,
     FivePL
 
-export PersonParameter, PersonParameterResult, PersonParameterAlgorithm
-export MAP, MLE, WLE, person_parameters, person_parameter
-export value, se, score
+export PersonParameter,
+    PersonParameterResult,
+    PersonParameterAlgorithm,
+    MAP,
+    MLE,
+    WLE,
+    person_parameters,
+    person_parameter,
+    value,
+    se,
+    score,
+    modeltype,
+    algorithm
 
 include("utils.jl")
 include("algorithms/algorithms.jl")
