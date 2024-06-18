@@ -2,17 +2,25 @@ module PersonParameters
 
 using Distributions: Normal, Distribution, Univariate, Continuous, logpdf
 using DocStringExtensions: TYPEDEF, SIGNATURES, FIELDS, METHODLIST
-using ForwardDiff: derivative
 using ItemResponseFunctions:
     ItemResponseModel,
     DichotomousItemResponseModel,
+    PolytomousItemResponseModel,
     irf,
+    irf!,
     iif,
     information,
     derivative_theta,
-    second_derivative_theta
+    second_derivative_theta,
+    second_derivative_theta!,
+    expected_score
 using Reexport: @reexport
 using Roots
+using SimpleUnPack: @unpack
+
+# using ForwardDiff: derivative, gradient
+import ForwardDiff
+using DifferentiationInterface
 
 @reexport using ItemResponseFunctions:
     OneParameterLogisticModel,
@@ -26,7 +34,15 @@ using Roots
     FourParameterLogisticModel,
     FourPL,
     FiveParameterLogisticModel,
-    FivePL
+    FivePL,
+    PCM,
+    PartialCreditModel,
+    GPCM,
+    GeneralizedPartialCreditModel,
+    RSM,
+    RatingScaleModel,
+    GRSM,
+    GeneralizedRatingScaleModel
 
 export PersonParameter,
     PersonParameterResult,
