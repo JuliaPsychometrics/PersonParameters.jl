@@ -162,7 +162,7 @@ function person_parameter(
 
     standard_error = se(alg, modeltype, theta, betas)
 
-    return PersonParameter(theta, standard_error)
+    return PersonParameter{typeof(init)}(theta, standard_error)
 end
 
 """
