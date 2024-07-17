@@ -19,8 +19,9 @@ using Roots
 using SimpleUnPack: @unpack
 
 # using ForwardDiff: derivative, gradient
-import ForwardDiff
-using DifferentiationInterface
+using ForwardDiff
+using Enzyme
+# using DifferentiationInterface
 
 @reexport using ItemResponseFunctions:
     OneParameterLogisticModel,

@@ -7,19 +7,24 @@ Use `prior` to specify the prior distribution of ability values.
 ## Fields
 $(FIELDS)
 """
-struct MAP{T<:Distribution{Univariate,Continuous},V} <: PPA
+struct MAP{T<:Distribution{Univariate,Continuous}} <: PPA
     "The prior distribution of person abilities"
     prior::T
-    "The automatic differentiation type"
-    adtype::V
 end
 
-MAP(prior = Normal(); adtype = AutoForwardDiff()) = MAP(prior, adtype)
+MAP(prior = Normal()) = MAP(prior)
 
 rational_bounds(alg::MAP) = true
 
-function optfun(alg::MAP, modeltype::Type{<:ItemResponseModel}, theta, betas, responses)
-    optval = optfun(MLE(), modeltype, theta, betas, responses)
-    optval += derivative(x -> logpdf(alg.prior, x), alg.adtype, theta)
+function optfun(alg::MAP, M::Type{<:ItemResponseModel}, theta, betas, responses)
+    optval = optfun(MLE(), M, theta, betas, responses)
+    prior = Enzyme.autodiff(
+        Forward,
+        logpdf,
+        DuplicatedNoNeed,
+        Const(alg.prior),
+        Duplicated(theta, 1.0),
+    )
+    optval += prior[1]
     return optval
 end

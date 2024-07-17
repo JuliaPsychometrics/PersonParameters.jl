@@ -1,15 +1,13 @@
 name = "PersonParameters"
 uuid = "ede86a6c-608d-4331-8790-0f4b0558141a"
-authors = [
-    "Tobias Alfers <tobias@alfers.eu>",
-    "Philipp Gewessler <p.gewessler@gmx.at>",
-]
+authors = ["Tobias Alfers <tobias@alfers.eu>", "Philipp Gewessler <p.gewessler@gmx.at>"]
 version = "0.1.0"
 
 [deps]
 DifferentiationInterface = "a0c0ee7d-e4b9-4e03-894e-1c5f64a51d63"
 Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
 DocStringExtensions = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
+Enzyme = "7da242da-08ed-463a-9acd-ee780be4f1d9"
 ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
 ItemResponseFunctions = "18e85bec-f2a0-4122-b3a6-37651333b522"
 Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
