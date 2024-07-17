@@ -17,7 +17,7 @@ function optfun(alg::WLE, M::Type{<:ItemResponseModel}, theta, betas, responses)
 
     for beta in betas
         probs, derivs, derivs2 = second_derivative_theta(M, theta, beta)
-        bias += sum(@. derivs * derivs2 / probs)
+        bias += sum(derivs[i] * derivs2[i] / probs[i] for i in eachindex(probs))
     end
 
     info = information(M, theta, betas)

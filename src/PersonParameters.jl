@@ -4,20 +4,23 @@ using Distributions: Normal, Distribution, Univariate, Continuous, logpdf
 using DocStringExtensions: TYPEDEF, SIGNATURES, FIELDS, METHODLIST
 using Enzyme: autodiff, autodiff_deferred, Const, Duplicated, DuplicatedNoNeed, Forward
 using ItemResponseFunctions:
-    ItemResponseModel,
     DichotomousItemResponseModel,
+    ItemParameters,
+    ItemResponseModel,
     PolytomousItemResponseModel,
-    irf,
-    irf!,
+    derivative_theta,
+    expected_score,
     iif,
     information,
-    derivative_theta,
-    second_derivative_theta,
+    irf!,
+    irf,
     second_derivative_theta!,
-    expected_score
+    second_derivative_theta
 using Reexport: @reexport
 using Roots
 using SimpleUnPack: @unpack
+
+using Folds: map
 
 @reexport using ItemResponseFunctions:
     OneParameterLogisticModel,

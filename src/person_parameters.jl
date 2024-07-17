@@ -63,7 +63,7 @@ struct PersonParameterResult{
     T<:ItemResponseModel,
     U<:PersonParameter,
     V<:PersonParameterAlgorithm,
-}
+} <: AbstractArray{U,1}
     "A vector of estimated person parameters"
     values::Vector{U}
     "The algorithm used for estimation"
@@ -71,6 +71,7 @@ struct PersonParameterResult{
 end
 
 Base.getindex(pp::PersonParameterResult, i) = getindex(pp.values, i)
+Base.size(pp::PersonParameterResult) = size(pp.values)
 
 """
     $(SIGNATURES)
@@ -105,7 +106,7 @@ algorithm(pp::PersonParameterResult) = pp.algorithm
 """
     $(SIGNATURES)
 
-Estimate a single person parameter for an item response theory model (`modeltype`) from a
+Estimate a single person parameter for an item response theory model `M` from a
 response vector (`responses`) given item parameters `beta` and an estimation algorithm `alg`.
 
 ## Examples
@@ -130,7 +131,7 @@ PersonParameter{Float64}(0.4386489955068812, 1.6080292828245706)
 ```
 """
 function person_parameter(
-    modeltype::Type{<:ItemResponseModel},
+    M::Type{<:ItemResponseModel},
     responses,
     betas,
     alg::PPA;
@@ -154,13 +155,10 @@ function person_parameter(
     end
 
     # optimization problem
-    prob = ZeroProblem(
-        x -> optfun(alg, modeltype, x, betas_nonmissing, responses_nonmissing),
-        init,
-    )
+    prob = ZeroProblem(x -> optfun(alg, M, x, betas_nonmissing, responses_nonmissing), init)
     theta = solve(prob, Order1(); kwargs...)
 
-    standard_error = se(alg, modeltype, theta, betas)
+    standard_error = se(alg, M, theta, betas)
 
     return PersonParameter{typeof(init)}(theta, standard_error)
 end
@@ -168,7 +166,7 @@ end
 """
     $(SIGNATURES)
 
-Estimate person parameters for an item response theory model of type `modeltype` given
+Estimate person parameters for an item response theory model of type `M` given
 item parameters `betas`, an estimation algorithm `alg` and `responses` for each person.
 
 `responses` can be a vector of responses where each entry corresponds to the responses for
@@ -191,13 +189,15 @@ julia> person_parameters(OnePL, responses, betas, MLE());
 ```
 """
 function person_parameters(
-    modeltype::Type{<:ItemResponseModel},
+    M::Type{<:ItemResponseModel},
     responses::AbstractVector,
     betas,
     alg::PPA,
 )
     patterns, ids = get_unique_response_patterns(responses)
-    unique_thetas = [person_parameter(modeltype, ys, betas, alg) for ys in patterns]
+    unique_thetas = Folds.map(patterns) do ys
+        return person_parameter(M, ys, betas, alg)
+    end
 
     T = eltype(unique_thetas)
     thetas = Vector{T}(undef, length(responses))
@@ -208,14 +208,14 @@ function person_parameters(
         end
     end
 
-    return PersonParameterResult{modeltype,T,typeof(alg)}(thetas, alg)
+    return PersonParameterResult{M,T,typeof(alg)}(thetas, alg)
 end
 
 function person_parameters(
-    modeltype::Type{<:ItemResponseModel},
+    M::Type{<:ItemResponseModel},
     responses::AbstractMatrix,
     betas,
     alg,
 )
-    return person_parameters(modeltype, eachrow(responses), betas, alg)
+    return person_parameters(M, eachrow(responses), betas, alg)
 end
