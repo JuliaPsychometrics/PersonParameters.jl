@@ -127,7 +127,7 @@ julia> responses = [0, 1, 1];
 julia> betas = [(a = 1.0, b = 0.3, c = 0.1), (a = 0.3, b = -0.5, c = 0.0), (a = 1.4, b = 1.1, c = 0.3)];
 
 julia> person_parameter(ThreePL, responses, betas, WLE())
-PersonParameter{Float64}(0.4386489955068812, 1.6080292828245706)
+PersonParameter{Float64}(0.657715606325967, 1.5321777539977457)
 ```
 """
 function person_parameter(
