@@ -2,6 +2,7 @@ module PersonParameters
 
 using Distributions: Normal, Distribution, Univariate, Continuous, logpdf
 using DocStringExtensions: TYPEDEF, SIGNATURES, FIELDS, METHODLIST
+using Enzyme: autodiff, autodiff_deferred, Const, Duplicated, DuplicatedNoNeed, Forward
 using ItemResponseFunctions:
     ItemResponseModel,
     DichotomousItemResponseModel,
@@ -17,11 +18,6 @@ using ItemResponseFunctions:
 using Reexport: @reexport
 using Roots
 using SimpleUnPack: @unpack
-
-# using ForwardDiff: derivative, gradient
-using ForwardDiff
-using Enzyme
-# using DifferentiationInterface
 
 @reexport using ItemResponseFunctions:
     OneParameterLogisticModel,

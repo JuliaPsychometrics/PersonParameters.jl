@@ -13,7 +13,7 @@ function loglik(M::Type{<:ItemResponseModel}, theta::Real, betas, responses)
 end
 
 function derivative_loglik(M::Type{<:ItemResponseModel}, theta::Real, betas, responses)
-    deriv = Enzyme.autodiff_deferred(
+    deriv = autodiff_deferred(
         Forward,
         loglik,
         DuplicatedNoNeed,

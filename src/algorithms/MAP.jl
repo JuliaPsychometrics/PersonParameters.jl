@@ -18,7 +18,7 @@ rational_bounds(alg::MAP) = true
 
 function optfun(alg::MAP, M::Type{<:ItemResponseModel}, theta, betas, responses)
     optval = optfun(MLE(), M, theta, betas, responses)
-    prior = Enzyme.autodiff(
+    prior = autodiff(
         Forward,
         logpdf,
         DuplicatedNoNeed,
