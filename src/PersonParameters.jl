@@ -3,6 +3,7 @@ module PersonParameters
 using Distributions: Normal, Distribution, Univariate, Continuous, logpdf
 using DocStringExtensions: TYPEDEF, SIGNATURES, FIELDS, METHODLIST
 using Enzyme: autodiff, autodiff_deferred, Const, Duplicated, DuplicatedNoNeed, Forward
+using Folds
 using ItemResponseFunctions:
     DichotomousItemResponseModel,
     ItemParameters,
@@ -19,8 +20,6 @@ using ItemResponseFunctions:
 using Reexport: @reexport
 using Roots
 using SimpleUnPack: @unpack
-
-using Folds: map
 
 @reexport using ItemResponseFunctions:
     OneParameterLogisticModel,
@@ -61,5 +60,7 @@ export PersonParameter,
 include("utils.jl")
 include("algorithms/algorithms.jl")
 include("person_parameters.jl")
+
+# include("precompile.jl")
 
 end
