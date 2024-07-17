@@ -19,7 +19,7 @@ const PPA = PersonParameterAlgorithm
 
 The optimization function passed to the root finding algorithm.
 """
-function optfun(alg::PPA, M, theta, betas, responses) end
+function optfun(alg::PPA, M::Type{<:ItemResponseModel}, theta, betas, responses) end
 
 """
     $(SIGNATURES)
