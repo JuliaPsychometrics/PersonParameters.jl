@@ -1,26 +1,29 @@
 name = "PersonParameters"
 uuid = "ede86a6c-608d-4331-8790-0f4b0558141a"
-authors = [
-    "Tobias Alfers <tobias@alfers.eu>",
-    "Philipp Gewessler <p.gewessler@gmx.at>",
-]
+authors = ["Tobias Alfers <tobias@alfers.eu>", "Philipp Gewessler <p.gewessler@gmx.at>"]
 version = "0.1.0"
 
 [deps]
 Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
 DocStringExtensions = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
+Folds = "41a02a25-b8f0-4f67-bc48-60067656b558"
 ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
 ItemResponseFunctions = "18e85bec-f2a0-4122-b3a6-37651333b522"
+PrecompileTools = "aea7be01-6a6a-4083-8856-8a6e6704d82a"
 Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 Roots = "f2b01f46-fcfa-551c-844a-d8ac1e96c665"
+SimpleUnPack = "ce78b400-467f-4804-87d8-8f486da07d0a"
 
 [compat]
 Distributions = "0.25"
 DocStringExtensions = "0.9"
+Folds = "0.2"
 ForwardDiff = "0.10"
-ItemResponseFunctions = "0.1"
+ItemResponseFunctions = "0.1.6"
+PrecompileTools = "1"
 Reexport = "1"
 Roots = "2"
+SimpleUnPack = "1"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

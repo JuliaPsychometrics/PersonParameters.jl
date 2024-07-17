@@ -12,12 +12,13 @@ struct MAP{T<:Distribution{Univariate,Continuous}} <: PPA
     prior::T
 end
 
-MAP() = MAP(Normal())
+MAP(prior = Normal()) = MAP(prior)
 
 rational_bounds(alg::MAP) = true
 
-function optfun(alg::MAP, modeltype, theta, betas, responses)
-    optval = optfun(MLE(), modeltype, theta, betas, responses)
-    optval += derivative(x -> logpdf(alg.prior, x), theta)
+function optfun(alg::MAP, M::Type{<:ItemResponseModel}, theta, betas, responses)
+    optval = optfun(MLE(), M, theta, betas, responses)
+    f(x) = logpdf(alg.prior, x)
+    optval += derivative(f, theta)
     return optval
 end

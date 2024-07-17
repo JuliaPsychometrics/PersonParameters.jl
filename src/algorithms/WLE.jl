@@ -11,27 +11,17 @@ struct WLE <: PPA end
 
 rational_bounds(alg::WLE) = true
 
-function optfun(
-    alg::WLE,
-    modeltype::Type{<:DichotomousItemResponseModel},
-    theta,
-    betas,
-    responses,
-)
-    optval = zero(theta)
+function optfun(alg::WLE, M::Type{<:ItemResponseModel}, theta, betas, responses)
+    optval = optfun(MLE(), M, theta, betas, responses)
+    bias = zero(optval)
 
-    for (beta, y) in zip(betas, responses)
-        prob, deriv, deriv2 = second_derivative_theta(modeltype, theta, beta, 1)
-
-        # MLE value
-        p1mp = prob * (1 - prob)
-        optval += ((y - prob) * deriv) / p1mp
-
-        # bias correction
-        i = deriv^2 / p1mp
-        j = deriv * deriv2 / p1mp
-        optval += j / 2 * i
+    for beta in betas
+        probs, derivs, derivs2 = second_derivative_theta(M, theta, beta)
+        bias += sum(derivs[i] * derivs2[i] / probs[i] for i in eachindex(probs))
     end
 
-    return optval
+    info = information(M, theta, betas)
+    bias *= (-1 / (2 * info^2))
+
+    return optval - info * bias
 end

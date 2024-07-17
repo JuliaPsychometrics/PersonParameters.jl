@@ -7,19 +7,7 @@ struct MLE <: PPA end
 
 rational_bounds(alg::MLE) = false
 
-function optfun(
-    alg::MLE,
-    modeltype::Type{<:DichotomousItemResponseModel},
-    theta,
-    betas,
-    responses,
-)
-    optval = zero(theta)
-
-    for (beta, y) in zip(betas, responses)
-        prob, deriv = derivative_theta(modeltype, theta, beta, 1)
-        optval += ((y - prob) * deriv) / (prob * (1 - prob))
-    end
-
+function optfun(alg::MLE, M::Type{<:ItemResponseModel}, theta, betas, responses)
+    optval = derivative_loglik(M, theta, betas, responses)
     return optval
 end

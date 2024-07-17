@@ -2,17 +2,26 @@ module PersonParameters
 
 using Distributions: Normal, Distribution, Univariate, Continuous, logpdf
 using DocStringExtensions: TYPEDEF, SIGNATURES, FIELDS, METHODLIST
+using Folds
 using ForwardDiff: derivative
+
 using ItemResponseFunctions:
-    ItemResponseModel,
     DichotomousItemResponseModel,
-    irf,
+    ItemParameters,
+    ItemResponseModel,
+    PolytomousItemResponseModel,
+    derivative_theta,
+    expected_score,
     iif,
     information,
-    derivative_theta,
+    irf!,
+    irf,
+    second_derivative_theta!,
     second_derivative_theta
+
 using Reexport: @reexport
 using Roots
+using SimpleUnPack: @unpack
 
 @reexport using ItemResponseFunctions:
     OneParameterLogisticModel,
@@ -26,7 +35,15 @@ using Roots
     FourParameterLogisticModel,
     FourPL,
     FiveParameterLogisticModel,
-    FivePL
+    FivePL,
+    PCM,
+    PartialCreditModel,
+    GPCM,
+    GeneralizedPartialCreditModel,
+    RSM,
+    RatingScaleModel,
+    GRSM,
+    GeneralizedRatingScaleModel
 
 export PersonParameter,
     PersonParameterResult,
@@ -45,5 +62,7 @@ export PersonParameter,
 include("utils.jl")
 include("algorithms/algorithms.jl")
 include("person_parameters.jl")
+
+include("precompile.jl")
 
 end
