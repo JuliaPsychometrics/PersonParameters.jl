@@ -5,7 +5,7 @@ using PrecompileTools: @setup_workload, @compile_workload
     algorithms = [MLE(), WLE(), MAP()]
     beta = (; a = 1.0, b = 0.0, c = 0.0, d = 1.0, e = 1.0, t = zeros(1))
     betas = fill(beta, 3)
-    responses = Int.(rand(3, 10) .> 0.5)
+    responses = Int.(rand(10, 3) .> 0.5)
 
     @compile_workload begin
         for model in models

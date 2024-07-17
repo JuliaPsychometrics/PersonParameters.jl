@@ -18,13 +18,7 @@ rational_bounds(alg::MAP) = true
 
 function optfun(alg::MAP, M::Type{<:ItemResponseModel}, theta, betas, responses)
     optval = optfun(MLE(), M, theta, betas, responses)
-    prior = autodiff(
-        Forward,
-        logpdf,
-        DuplicatedNoNeed,
-        Const(alg.prior),
-        Duplicated(theta, 1.0),
-    )
-    optval += prior[1]
+    f(x) = logpdf(alg.prior, x)
+    optval += derivative(f, theta)
     return optval
 end

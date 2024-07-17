@@ -13,14 +13,6 @@ function loglik(M::Type{<:ItemResponseModel}, theta::Real, betas, responses)
 end
 
 function derivative_loglik(M::Type{<:ItemResponseModel}, theta::Real, betas, responses)
-    deriv = autodiff(
-        Forward,
-        loglik,
-        DuplicatedNoNeed,
-        Const(M),
-        Duplicated(theta, 1.0),
-        Const(betas),
-        Const(responses),
-    )
-    return deriv[1]
+    f(x) = loglik(M, x, betas, responses)
+    return derivative(f, theta)
 end

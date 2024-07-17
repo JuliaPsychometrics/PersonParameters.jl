@@ -2,8 +2,9 @@ module PersonParameters
 
 using Distributions: Normal, Distribution, Univariate, Continuous, logpdf
 using DocStringExtensions: TYPEDEF, SIGNATURES, FIELDS, METHODLIST
-using Enzyme: autodiff, autodiff_deferred, Const, Duplicated, DuplicatedNoNeed, Forward
 using Folds
+using ForwardDiff: derivative
+
 using ItemResponseFunctions:
     DichotomousItemResponseModel,
     ItemParameters,
@@ -17,6 +18,7 @@ using ItemResponseFunctions:
     irf,
     second_derivative_theta!,
     second_derivative_theta
+
 using Reexport: @reexport
 using Roots
 using SimpleUnPack: @unpack
@@ -61,6 +63,6 @@ include("utils.jl")
 include("algorithms/algorithms.jl")
 include("person_parameters.jl")
 
-# include("precompile.jl")
+include("precompile.jl")
 
 end
