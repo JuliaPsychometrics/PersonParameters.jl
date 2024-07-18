@@ -23,8 +23,7 @@ hero:
 ```
 
 # What is PersonParameters.jl?
-PersonParameters.jl is a julia package that implements estimation of person parameters for item response models.
-Item parameters are treated as known and fixed.  
+PersonParameters.jl is a julia package that implements estimation of person parameters for item response models where item parameters are treated as known and fixed.  
 It is developed by the [JuliaPsychometrics](https://github.com/juliapsychometrics) organization under MIT license. 
 
 ## Installation 

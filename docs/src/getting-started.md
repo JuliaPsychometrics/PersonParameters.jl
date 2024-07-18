@@ -14,7 +14,7 @@ difficulties = randn(10)
 ```
 
 Next, responses need to be simulated. 
-Assuming 20 test takers we simply randomly generate a response matrix where each test taker responds to each item.
+Assuming 20 test-takers we simply randomly generate a response matrix where each test-taker responds to each item.
 
 ```@example getting-started
 responses = rand(20, 10) .> 0.5
@@ -32,14 +32,14 @@ using PersonParameters
 pp = person_parameters(OnePL, responses, difficulties, MLE())
 ```
 
-The resulting [`PersonParameterResult`](@ref) object the estimated person parameters for all 20 test takers.
+The resulting [`PersonParameterResult`](@ref) object contains the estimated person parameters for all 20 test-takers.
 The estimate of a single person can be obtained by indexing the `pp` object.
 
 ```@example getting-started
 pp17 = pp[17]
 ```
 
-Single person parameters contain the estimate and standard error of estimation. 
+The [`PersonParameter`](@ref) object consists of the estimate and standard error of estimation for a single test-taker. 
 To access the values you can use [`value`](@ref) and [`se`](@ref) respectivelty.
 
 ```@example getting-started

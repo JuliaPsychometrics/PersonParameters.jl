@@ -26,7 +26,7 @@ item_pool = randn(100)
 Next, we need to define a function to select the optimal item (step 1). 
 In adaptive testing this is usually the item that maximises the item information given the current ability estimate.
 
-Therefore we need a function taking the `item_pool` and current ability estimate `theta`, calculates the information for each item at `theta` and returns the id of the item with maximum information.
+Therefore we need a function that takes the `item_pool` and current ability estimate `theta` as inputs, calculates the information for each item in `item_pool` at `theta` and returns the id of the item with maximum information.
 
 Information functions for the Rasch model are available in [`ItemResponseFunctions.jl`](https://github.com/JuliaPsychometrics/ItemResponseFunctions.jl).
 
@@ -43,7 +43,7 @@ end
 
 For simplicity items are selected with replacement from the item pool. 
 
-In a real-world application one would track the exposed items and only select items that weren't previously exposed to the test-taker.
+In a real-world application one would prefer to track the exposed items and only select items that weren't previously exposed to the test-taker.
 
 :::
 
@@ -56,10 +56,10 @@ select_item(item_pool, 0.0)
 ### Defining the stopping criterion
 Our stopping criterion in this example is also based on the ability estimate. 
 The test should only be stopped if the accuracy of the estimate is higher than a predefined threshold.
-In other words: we stop the test if the standard error of the ability estimate is below `threshold`.
+In other words: We stop the test only if the standard error of the ability estimate is below `threshold`.
 
-The stopping criterion will return `false` if the criterion is not met, meaning the test continues and a new item is selected.
-If the stopping criterion is met `true` is returned and the test is stopped.
+The stopping criterion returns `false` if the criterion is not met, meaning the test continues and a new item is selected.
+If the stopping criterion is met, `true` is returned and the test is stopped.
 
 ```@example adaptive-testing
 using PersonParameters: PersonParameter, se
@@ -72,20 +72,20 @@ end
 A small test confirms the stopping rule works as intended.
 
 ```@example adaptive-testing
-stop(PersonParameter(0.0, 0.6)) == false
+stop(PersonParameter(0.0, 0.6))  # should return false 
 ```
 
 ```@example adaptive-testing
-stop(PersonParameter(0.0, 0.2)) == true
+stop(PersonParameter(0.0, 0.2))  # should return true
 ```
 
 ## Implementing the test logic
-Now that the item selection and stopping criterion are done, we can move on to code the test logic.
+Now that the item selection and stopping criterion are defined, we can move on to code the test logic.
 Recall that we must 
 
 1. Await the response of the test-taker,
 2. Update the ability value given the new response,
-3. Evaluate the stopping rule and either present the next (optimal) item to the test-taker, or stop the test.
+3. Evaluate the stopping rule and either present the next item to the test-taker according to `select_item`, or stop the test.
 
 Also we likely want to store responses, administered items, and intermediate ability values like so.
 
@@ -95,7 +95,13 @@ estimates = [PersonParameter(0.0, Inf)]
 items = [rand(eachindex(item_pool))]
 ```
 
-Note that `estimates` already includes an initial ability estimate of `0.0` and `items` an randomly selected initial item.
+::: note
+
+The objects `estimates` and `items` already include initial values.
+For the ability estimate the initial value was fixed at `0.0`.
+For the initial item a random item was chosen from the item pool.
+
+::: 
 
 The following function `update` implements the test logic as described above.
 It makes use of [`Observables.jl`](https://github.com/JuliaGizmos/Observables.jl), running every time a new `response` is observed.
@@ -213,7 +219,7 @@ In the original definition of `update` `@info` statements are placed throughout 
 ## Administering the test
 With all our test logic in place we can administer the test to a virtual test-taker. 
 We assume that the test taker has a true ability and their response follows the Rasch model. 
-Thus,
+Thus, we can define a `respond` function that gives us a random response to the item, given the expected probability of a correct response under the Rasch model.
 
 ```@example adaptive-testing
 using Distributions: Bernoulli
@@ -237,18 +243,28 @@ while !is_stopped[]
 end
 ```
 
-The following table contains the tracked data from the virtual test.
+As is evident from the logging statements, the test stops after 18 items have been administered.
+The final estimate is about `-0.09` with a standard error of `0.49`.
+
+```@example adaptive-testing
+last(estimates)
+```
+
+The following table contains all tracked data from the virtual test.
 
 ```@example adaptive-testing
 using MarkdownTables
 
-markdown_table([(; 
+init = (; step = 0, item = "", response = "", estimate = value(estimates[1]), se = se(estimates[1]))
+data = [(; 
     step = i, 
     item = items[i], 
     response = responses[i], 
     estimate = value(estimates[i + 1]), 
     se = se(estimates[i + 1])
-) for i in eachindex(items)])
+) for i in eachindex(items)]
+
+markdown_table(vcat(init, data))
 ```
 
 ## Additional information
