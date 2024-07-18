@@ -95,7 +95,7 @@ estimates = [PersonParameter(0.0, Inf)]
 items = [rand(eachindex(item_pool))]
 ```
 
-::: note
+::: info
 
 The objects `estimates` and `items` already include initial values.
 For the ability estimate the initial value was fixed at `0.0`.
