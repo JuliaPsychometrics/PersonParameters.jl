@@ -7,18 +7,13 @@ CurrentModule = PersonParameters
 ## Types
 ```@autodocs
 Modules = [PersonParameters]
-Private = false
 Order = [:type]
+Private = false
 ```
 
 ## Functions
 ```@autodocs
 Modules = [PersonParameters]
-Private = false
 Order = [:function]
-```
-
-### Internals
-```@docs
-optfun
+Private = false
 ```

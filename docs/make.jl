@@ -1,5 +1,6 @@
 using PersonParameters
 using Documenter
+using DocumenterVitepress
 
 DocMeta.setdocmeta!(
     PersonParameters,
@@ -9,19 +10,34 @@ DocMeta.setdocmeta!(
 )
 
 makedocs(;
-    checkdocs = :exported,
-    modules = [PersonParameters],
-    authors = "Philipp Gewessler",
     sitename = "PersonParameters.jl",
-    format = Documenter.HTML(;
-        prettyurls = get(ENV, "CI", "false") == "true",
-        canonical = "https://juliapsychometrics.github.io/PersonParameters.jl",
-        edit_link = "main",
-        repolink = "https://github.com/JuliaPsychometrics/PersonParameters.jl/blob/{commit}{path}#{line}",
-        assets = String[],
+    authors = "Philipp Gewessler",
+    modules = [PersonParameters],
+    warnonly = true,
+    checkdocs = :all,
+    format = DocumenterVitepress.MarkdownVitepress(;
+        repo = "github.com/JuliaPsychometrics/PersonParameters.jl",
+        devbranch = "main",
+        devurl = "dev",
     ),
-    pages = ["Home" => "index.md", "API" => "api.md"],
-    plugins = [],
+    clean = true,
+    draft = false,
+    source = "src",
+    build = "build",
+    pages = [
+        "Home" => "index.md",
+        "Getting started" => "getting-started.md",
+        "Guides" => [
+            "Online estimation of ability in adaptive testing" => "guides/adaptive-testing.md",
+        ],
+        "API" => "api.md",
+    ],
 )
 
-deploydocs(; repo = "github.com/JuliaPsychometrics/PersonParameters.jl", devbranch = "main")
+deploydocs(;
+    repo = "github.com/JuliaPsychometrics/PersonParameters.jl",
+    target = "build",
+    branch = "gh-pages",
+    devbranch = "main",
+    push_preview = true,
+)

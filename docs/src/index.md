@@ -1,66 +1,60 @@
-# PersonParameters.jl
+```@raw html
+---
+layout: home
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://juliapsychometrics.github.io/PersonParameters.jl/stable/)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://juliapsychometrics.github.io/PersonParameters.jl/dev/)
-[![Build Status](https://github.com/juliapsychometrics/PersonParameters.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/juliapsychometrics/PersonParameters.jl/actions/workflows/CI.yml?query=branch%3Amain)
-[![Coverage](https://codecov.io/gh/juliapsychometrics/PersonParameters.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/juliapsychometrics/PersonParameters.jl)
+hero:
+    name: PersonParameters.jl
+    tagline: Estimation of person parameters for item response models
+    actions:
+        - theme: brand
+          text: Getting started
+          link: /getting-started
+        - theme: alt
+          text: View on Github
+          link: https://github.com/JuliaPsychometrics/PersonParameters.jl  
+        - theme: alt
+          text: Function reference
+          link: /api
+---
+```
 
-[PersonParameters.jl](https://github.com/juliapsychometrics/PersonParameters.jl) implements estimation of person parameters for Item Response Theory models. Item parameters used in the estimation of person parameters are treated as fixed and known.
+```@raw html
+<div class="vp-doc" style="width:80%; margin:auto">
+```
 
-It is tightly integrated with [ItemResponseFunctions.jl](https://github.com/juliapsychometrics/ItemResponseFunctions.jl) allowing the estimation for all models defined in the package. Currently these are:
+# What is PersonParameters.jl?
+PersonParameters.jl is a julia package that implements estimation of person parameters for item response models.
+Item parameters are treated as known and fixed.  
+It is developed by the [JuliaPsychometrics](https://github.com/juliapsychometrics) organization under MIT license. 
 
-- Models for dichotomous responses
-  - 1 Parameter Logistic Model
-  - 2 Parameter Logistic Model
-  - 3 Parameter Logistic Model
-  - 4 Parameter Logistic Model
-  - 5 Parameter Logistic Model
-- Models for polytomous responses: not implemented yet
-
-Available estimation methods are:
-- Maximum Likelihood
-- Weighted Maximum Likelihood
-- Maximum A Posteriori
-
-## Installation
-You can install PersonParameters.jl from the General package registry:
+## Installation 
+The package can be installed via julias package management. 
 
 ```julia
 ] add PersonParameters
 ```
 
-## Usage
-The most common use case is to estimate person parameters from a response matrix and some known item parameters.
+## How do I use this package?
+PersonParameters.jl can be used to estimate the person parameters of an item response model with known item parameters. 
+This can be useful when only item parameters are available, e.g. when estimating a model via conditional maximum likelihood, or for online estimation of person abililty in [adaptive testing](https://en.wikipedia.org/wiki/Computerized_adaptive_testing).
 
-Let us define a response matrix (`responses`) and some item difficulties (`betas`) estimated by a 1 Parameter Logistic Model.
+It integrates with [ItemResponseFunctions.jl](https://github.com/juliapsychometrics/ItemResponseFunctions.jl) so parameters can be estimated for the following models:
 
-```julia
-responses = [
-    0 0 1 1
-    1 1 1 0
-    0 0 1 1
-    1 0 1 0
-    1 1 0 0
-]
+### Dichotomous response models
+- 1-Parameter Logistic Model
+- 2-Parameter Logistic Model
+- 3-Parameter Logistic Model
+- 4-Parameter Logistic Model
+- 5-Parameter Logistic Model
 
-betas = [0.2, -0.5, 1.5, -1.0]
-```
+### Polytomous response models
+- Partial Credit Model
+- Generalized Partial Credit Model
+- Rating Scale Model
+- Generalized Rating Scale Model
 
-Person parameters can simply be estimated by calling the `person_parameters` function, providing the data, scaling model and an estimation algorithm as arguments.
+For a fully worked example see the [Getting started](/getting-started) section.
 
-```julia
-using PersonParameters
-
-alg = MLE()
-pp = person_parameters(OnePL, responses, betas, alg)
-```
-
-The resulting `pp` object contains ability estimates for all 5 persons.
-To get the estimate for a single person you can index the `pp` object and extract values and standard errors.
-
-```julia
-pp2 = pp[2]
-
-values(pp2)  # 1.3513656133670724
-se(pp2)      # 1.2620475987627175
+```@raw html
+</div>
 ```
