@@ -1,5 +1,5 @@
 """
-    PersonParameterWLE
+    $(TYPEDEF)
 
 Warm's weighted likelihood estimation for person parameters of item response models.
 
