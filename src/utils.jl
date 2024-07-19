@@ -4,6 +4,14 @@ function get_unique_response_patterns(responses::AbstractVector)
     return unique_patterns, id_map
 end
 
+function likelihood(M::Type{<:ItemResponseModel}, theta::Real, betas, responses)
+    L = one(theta)
+    for (beta, y) in zip(betas, responses)
+        L *= irf(M, theta, beta, y)
+    end
+    return L
+end
+
 function loglik(M::Type{<:ItemResponseModel}, theta::Real, betas, responses)
     L = zero(theta)
     for (beta, y) in zip(betas, responses)

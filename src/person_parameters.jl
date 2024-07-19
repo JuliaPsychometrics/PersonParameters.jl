@@ -155,12 +155,8 @@ function person_parameter(
     end
 
     # optimization problem
-    prob = ZeroProblem(x -> optfun(alg, M, x, betas_nonmissing, responses_nonmissing), init)
-    theta = solve(prob, Order1(); kwargs...)
-
-    standard_error = se(alg, M, theta, betas)
-
-    return PersonParameter{typeof(init)}(theta, standard_error)
+    estimate = optimize(alg, M, betas_nonmissing, responses_nonmissing; init, kwargs...)
+    return estimate
 end
 
 """
