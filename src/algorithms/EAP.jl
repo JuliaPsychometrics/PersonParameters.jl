@@ -11,7 +11,9 @@ Defaults to `extrema(prior)`, c.f. the whole support of the prior distribution.
 $(FIELDS)
 """
 struct EAP{T<:Distribution{Univariate,Continuous},U<:Real} <: PPA
+    "the prior distribution of person abilities"
     prior::T
+    "the integration domain"
     domain::NTuple{2,U}
 end
 
