@@ -189,4 +189,4 @@ import{_ as s,c as i,o as a,a7 as n}from"./chunks/framework.CGdautCG.js";const E
 <span class="line"><span>  [18e85bec] ItemResponseFunctions v0.1.6</span></span>
 <span class="line"><span>  [1862ce21] MarkdownTables v1.1.0</span></span>
 <span class="line"><span>  [510215fc] Observables v0.5.5</span></span>
-<span class="line"><span>  [ede86a6c] PersonParameters v0.1.0 \`~/work/PersonParameters.jl/PersonParameters.jl\`</span></span></code></pre></div>`,68),p=[e];function l(h,k,d,r,o,c){return a(),i("div",null,p)}const y=s(t,[["render",l]]);export{E as __pageData,y as default};
+<span class="line"><span>  [ede86a6c] PersonParameters v0.1.1 \`~/work/PersonParameters.jl/PersonParameters.jl\`</span></span></code></pre></div>`,68),p=[e];function l(h,k,d,r,o,c){return a(),i("div",null,p)}const y=s(t,[["render",l]]);export{E as __pageData,y as default};
