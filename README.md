@@ -22,8 +22,9 @@ It is tightly integrated with [ItemResponseFunctions.jl](https://github.com/juli
   - Generalized Rating Scale Model
 
 Available estimation methods are:
-- Maximum Likelihood
-- Weighted Maximum Likelihood
-- Maximum A Posteriori
+- Maximum Likelihood (MLE)
+- Weighted Maximum Likelihood (WLE)
+- Maximum A Posteriori (MAP)
+- Expected A Posteriori (EAP)
 
 For more details see the [documentation](https://juliapsychometrics.github.io/PersonParameters.jl/)

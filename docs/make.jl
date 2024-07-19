@@ -30,6 +30,7 @@ makedocs(;
         "Guides" => [
             "Online estimation of ability in adaptive testing" => "guides/adaptive-testing.md",
         ],
+        "References" => ["Treatment of missing values" => "references/missing-values.md"],
         "API" => "api.md",
     ],
 )

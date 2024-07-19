@@ -1,9 +1,11 @@
 module PersonParameters
 
-using Distributions: Normal, Distribution, Univariate, Continuous, logpdf
+
+using Distributions: Normal, Distribution, Univariate, Continuous, logpdf, pdf
 using DocStringExtensions: TYPEDEF, SIGNATURES, FIELDS, METHODLIST
 using Folds
 using ForwardDiff: derivative
+using QuadGK: quadgk
 
 using ItemResponseFunctions:
     DichotomousItemResponseModel,
@@ -48,6 +50,7 @@ using SimpleUnPack: @unpack
 export PersonParameter,
     PersonParameterResult,
     PersonParameterAlgorithm,
+    EAP,
     MAP,
     MLE,
     WLE,

@@ -1,4 +1,4 @@
-algorithms = [MLE(), WLE(), MAP(), MAP(Uniform(-1, 1))]
+algorithms = [MLE(), WLE(), MAP(), MAP(Uniform(-1, 1)), EAP(), EAP(Uniform(-1, 1))]
 
 @testset "estimation" begin
     @testset "person_parameter" begin
