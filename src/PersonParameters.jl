@@ -19,7 +19,9 @@ using ItemResponseFunctions:
     irf!,
     irf,
     second_derivative_theta!,
-    second_derivative_theta
+    second_derivative_theta,
+    likelihood,
+    loglikelihood
 
 using Reexport: @reexport
 using Roots
