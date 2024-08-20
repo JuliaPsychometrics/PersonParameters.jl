@@ -190,7 +190,6 @@ function person_parameters(
     betas,
     alg::PPA,
 )
-    # patterns, ids = get_unique_response_patterns(responses)
     response_patterns = ResponsePatterns(responses)
 
     unique_thetas = Folds.map(patterns(response_patterns)) do ys
