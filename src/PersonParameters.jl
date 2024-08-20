@@ -49,22 +49,25 @@ using SimpleUnPack: @unpack
     GRSM,
     GeneralizedRatingScaleModel
 
-export PersonParameter,
-    PersonParameterResult,
-    PersonParameterAlgorithm,
-    EAP,
+export EAP,
     MAP,
     MLE,
+    PersonParameter,
+    PersonParameterAlgorithm,
+    PersonParameterResult,
+    ResponsePatterns,
     WLE,
-    person_parameters,
-    person_parameter,
-    value,
-    se,
-    score,
+    algorithm,
+    ids,
     modeltype,
-    algorithm
+    patterns,
+    person_parameter,
+    person_parameters,
+    score,
+    se,
+    value
 
-include("utils.jl")
+include("response_patterns.jl")
 include("algorithms/algorithms.jl")
 include("person_parameters.jl")
 
