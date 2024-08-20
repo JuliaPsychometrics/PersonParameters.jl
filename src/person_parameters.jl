@@ -190,15 +190,17 @@ function person_parameters(
     betas,
     alg::PPA,
 )
-    patterns, ids = get_unique_response_patterns(responses)
-    unique_thetas = Folds.map(patterns) do ys
+    # patterns, ids = get_unique_response_patterns(responses)
+    response_patterns = ResponsePatterns(responses)
+
+    unique_thetas = Folds.map(patterns(response_patterns)) do ys
         return person_parameter(M, ys, betas, alg)
     end
 
     T = eltype(unique_thetas)
     thetas = Vector{T}(undef, length(responses))
 
-    for (is, theta) in zip(ids, unique_thetas)
+    for (is, theta) in zip(ids(response_patterns), unique_thetas)
         for i in is
             thetas[i] = theta
         end
