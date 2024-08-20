@@ -111,7 +111,7 @@ response vector (`responses`) given item parameters `beta` and an estimation alg
 
 ## Examples
 ### 1 Parameter Logistic Model
-```jldoctest
+```jldoctest; filter = r"(\\d*)\\.(\\d{4})\\d+" => s"\\1.\\2***"
 julia> responses = [0, 1, 1, 0, 0];
 
 julia> betas = [0.2, -1.3, 0.4, 1.2, 0.0];
@@ -121,7 +121,7 @@ PersonParameter{Float64}(-0.34640709530672537, 0.9812365857368596)
 ```
 
 ### 3 Parameter Logistic Model
-```jldoctest
+```jldoctest; filter = r"(\\d*)\\.(\\d{4})\\d+" => s"\\1.\\2***"
 julia> responses = [0, 1, 1];
 
 julia> betas = [(a = 1.0, b = 0.3, c = 0.1), (a = 0.3, b = -0.5, c = 0.0), (a = 1.4, b = 1.1, c = 0.3)];
@@ -190,15 +190,16 @@ function person_parameters(
     betas,
     alg::PPA,
 )
-    patterns, ids = get_unique_response_patterns(responses)
-    unique_thetas = Folds.map(patterns) do ys
+    response_patterns = ResponsePatterns(responses)
+
+    unique_thetas = Folds.map(patterns(response_patterns)) do ys
         return person_parameter(M, ys, betas, alg)
     end
 
     T = eltype(unique_thetas)
     thetas = Vector{T}(undef, length(responses))
 
-    for (is, theta) in zip(ids, unique_thetas)
+    for (is, theta) in zip(ids(response_patterns), unique_thetas)
         for i in is
             thetas[i] = theta
         end
