@@ -12,7 +12,13 @@ using PrecompileTools: @setup_workload, @compile_workload
         for model in models
             for alg in algorithms
                 data = model <: DichotomousItemResponseModel ? responses : responses .+ 1
-                person_parameters(model, data, betas, alg)
+                try
+                    person_parameters(model, data, betas, alg)
+                catch err
+                    if !(err isa Roots.ConvergenceFailed)
+                        rethrow(err)
+                    end
+                end
             end
         end
     end

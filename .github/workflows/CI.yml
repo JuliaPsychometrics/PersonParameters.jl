@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-    tags: ['*']
+    tags: ["*"]
   pull_request:
   workflow_dispatch:
 concurrency:
@@ -20,8 +20,8 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - '1.9'
-          - '1.10'
+          - "1.10"
+          - "1.11"
         os:
           - ubuntu-latest
         arch:
@@ -29,7 +29,7 @@ jobs:
         allow_failure:
           - false
         include:
-          - version: 'nightly'
+          - version: "nightly"
             os: ubuntu-latest
             arch: x64
             allow_failure: true

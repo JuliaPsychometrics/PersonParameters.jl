@@ -63,7 +63,6 @@ export EAP,
     patterns,
     person_parameter,
     person_parameters,
-    score,
     se,
     value
 

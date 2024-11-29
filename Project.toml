@@ -1,7 +1,10 @@
 name = "PersonParameters"
 uuid = "ede86a6c-608d-4331-8790-0f4b0558141a"
-authors = ["Tobias Alfers <tobias@alfers.eu>", "Philipp Gewessler <p.gewessler@gmx.at>"]
-version = "0.1.3"
+authors = [
+    "Tobias Alfers <tobias@alfers.eu>",
+    "Philipp Gewessler <p.gewessler@gmx.at>",
+]
+version = "0.2.0"
 
 [deps]
 Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
@@ -20,13 +23,13 @@ Distributions = "0.25"
 DocStringExtensions = "0.9"
 Folds = "0.2"
 ForwardDiff = "0.10"
-ItemResponseFunctions = "0.1.7"
+ItemResponseFunctions = "0.2"
 PrecompileTools = "1"
 Reexport = "1"
 Roots = "2"
 SimpleUnPack = "1"
 QuadGK = "2"
-julia = "1.9"
+julia = "1.10"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
