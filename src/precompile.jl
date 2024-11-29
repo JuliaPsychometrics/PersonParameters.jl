@@ -15,7 +15,7 @@ using PrecompileTools: @setup_workload, @compile_workload
                 try
                     person_parameters(model, data, betas, alg)
                 catch err
-                    if !err isa Roots.ConvergenceFailed
+                    if !(err isa Roots.ConvergenceFailed)
                         rethrow(err)
                     end
                 end
