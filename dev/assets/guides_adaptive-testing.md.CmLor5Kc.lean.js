@@ -189,4 +189,4 @@ import{_ as i,c as a,a5 as n,o as t}from"./chunks/framework.CD9RqsIt.js";const c
 <span class="line"><span>  [18e85bec] ItemResponseFunctions v0.2.0</span></span>
 <span class="line"><span>  [1862ce21] MarkdownTables v1.1.0</span></span>
 <span class="line"><span>  [510215fc] Observables v0.5.5</span></span>
-<span class="line"><span>  [ede86a6c] PersonParameters v0.2.0 \`~/work/PersonParameters.jl/PersonParameters.jl\`</span></span></code></pre></div>`,68)]))}const g=i(e,[["render",p]]);export{c as __pageData,g as default};
+<span class="line"><span>  [ede86a6c] PersonParameters v0.2.1 \`~/work/PersonParameters.jl/PersonParameters.jl\`</span></span></code></pre></div>`,68)]))}const g=i(e,[["render",p]]);export{c as __pageData,g as default};
