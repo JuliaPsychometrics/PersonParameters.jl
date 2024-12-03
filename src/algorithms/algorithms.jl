@@ -16,7 +16,7 @@ const PPA = PersonParameterAlgorithm
 
 function optimize(alg::PPA, M::Type{<:ItemResponseModel}, betas, responses; init, kwargs...)
     f(x) = optfun(alg, M, x, betas, responses)
-    theta = find_zero(f, init, Order1(); kwargs...)
+    theta = find_zero(f, init, alg.root_finding_alg; kwargs...)
     standard_error = se(alg, M, theta, betas)
     return PersonParameter{typeof(theta)}(theta, standard_error)
 end
@@ -38,8 +38,6 @@ function se(alg::PPA, M::Type{<:ItemResponseModel}, theta, betas)
     info = information(M, theta, betas)
     return sqrt(inv(info))
 end
-
-
 
 include("MLE.jl")
 include("WLE.jl")
