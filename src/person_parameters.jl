@@ -98,7 +98,7 @@ Get the algorithm used to calculate the person parameters in `pp`.
 julia> pp = person_parameters(OnePL, fill(zeros(3), 5), zeros(3), MLE());
 
 julia> algorithm(pp)
-MLE()
+MLE{Roots.Secant}(Roots.Secant())
 ```
 """
 algorithm(pp::PersonParameterResult) = pp.algorithm
