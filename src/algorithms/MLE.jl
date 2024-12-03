@@ -3,7 +3,9 @@
 
 Maximum likelihood estimation for person parameters of item response models.
 """
-struct MLE <: PPA end
+@kwdef struct MLE{T<:Roots.AbstractSecantMethod} <: PPA
+    root_finding_alg::T = Order1()
+end
 
 rational_bounds(alg::MLE) = false
 
